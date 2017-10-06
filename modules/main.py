@@ -2,13 +2,12 @@ import discord
 import asyncio
 import random
 import json
-from config import token
 from discord.ext import commands
+from config import bot_token
 
 # this specifies what extensions to load when the bot starts up
 startup_extensions = ["core", "members"]
 
-bot = discord.Client()
 bot_prefix = "-" #default prefix
 embed_color = 13454262 #default embed color
 bot = commands.Bot(command_prefix=bot_prefix)
