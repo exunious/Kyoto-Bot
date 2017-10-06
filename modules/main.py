@@ -21,6 +21,25 @@ async def on_ready():
     print("ID: {}".format(bot.user.id))
     print('------')
 
+##########################################
+############## Help Command ##############
+##########################################
+
+#help command (-help)
+    @bot.command(pass_context = True, aliases=['h'])
+    async def help(ctx):
+        embed = discord.Embed(title="Command List for Kyoto!", colour=discord.Colour(0xcd4bb6), description="By default all commands have the ``-`` prefix. \nIf your server admin changed the prefix, then stick to that prefix!\n**Don't include the example brackets when using the commands!**⠀\n⠀")
+        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/365240645419270145/3f6527890a2b55b1eb864dd0113e0589.png")
+        embed.add_field(name="Core Commands", value="`-help`⠀`-invite`⠀`-ls` or `-listservers`⠀`-si` or `-serverinfo`\n", inline=False)
+        embed.add_field(name="Kawaii Commands", value="`-hug [@mention]`⠀`-poke [@mention]`⠀`-wave [@mention]`⠀`-hide [@mention]`⠀\n`-blush`⠀`-shine`⠀`-happy`\n", inline=False)
+        embed.add_field(name="Voice Commands", value="`-connect`⠀`-disconnect`\n", inline=False)
+        embed.add_field(name="Administrator Commands", value="`-clear [amount]`⠀`-ban [@mention]`⠀`-getbans`⠀`-kick [@mention]`", inline=False)
+        await bot.send_message(ctx.message.author, embed = embed),
+
+        embed = discord.Embed(description = "**"+ctx.message.author.mention +" a personal message with all my commands is on the way!** :heart:", color = 13454262)
+        await bot.say(embed = embed)
+        await bot.delete_message(ctx.message)
+
 #########################################
 ############## Load/Unload ##############
 #########################################
