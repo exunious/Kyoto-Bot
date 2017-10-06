@@ -1,0 +1,1 @@
+start cmd.exe /k "python C:\Users\timob\Desktop\Kyoto-Bot\modules\main.py"
