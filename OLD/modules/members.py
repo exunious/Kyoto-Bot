@@ -6,9 +6,9 @@ class Members():
         self.bot = bot
 
     @commands.command()
-    async def joined(self, ctx, member : discord.Member):
+    async def joined(self, member : discord.Member):
         """Says when a member joined."""
-        await ctx.send('{0.name} joined in {0.joined_at}'.format(member))
+        await self.bot.say('{0.name} joined in {0.joined_at}'.format(member))
 
     @commands.group(pass_context=True)
     async def cool(self, ctx):
@@ -16,12 +16,12 @@ class Members():
         In reality this just checks if a subcommand is being invoked.
         """
         if ctx.invoked_subcommand is None:
-            await ctx.send('No, {0.subcommand_passed} is not cool'.format(ctx))
+            await self.bot.say('No, {0.subcommand_passed} is not cool'.format(ctx))
 
     @cool.command(name='bot')
-    async def _bot(self, ctx):
+    async def _bot(self):
         """Is the bot cool?"""
-        await ctx.send('Yes, the bot is cool.')
+        await self.bot.say('Yes, the bot is cool.')
 
 
 def setup(bot):

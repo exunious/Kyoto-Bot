@@ -1,4 +1,7 @@
 import discord
+import asyncio
+import random
+import json
 from discord.ext import commands
 from config import bot_token
 from config import embed_color
@@ -31,11 +34,11 @@ async def on_ready():
         embed.add_field(name="Fun Commands", value="`-8ball [question]`⠀\n", inline=False)
         embed.add_field(name="Voice Commands", value="`-connect`⠀`-disconnect`\n", inline=False)
         embed.add_field(name="Administrator Commands", value="`-clear [amount]`⠀`-ban [@mention]`⠀`-getbans`⠀`-kick [@mention]`", inline=False)
-        await ctx.author.send(embed = embed),
+        await bot.send_message(ctx.message.author, embed = embed),
 
-        embed = discord.Embed(description = "**"+ctx.author.name +" a personal message with all my commands is on the way!** :heart:", color = embed_color)
-        await ctx.send(embed = embed)
-        await ctx.message.delete()
+        embed = discord.Embed(description = "**"+ctx.message.author.name +" a personal message with all my commands is on the way!** :heart:", color = embed_color)
+        await bot.say(embed = embed)
+        await bot.delete_message(ctx.message)
 
 #########################################
 ############## Load/Unload ##############
@@ -47,40 +50,39 @@ async def load(ctx, *, extension_name : str = None):
 
     if extension_name == None:
         embed = discord.Embed(description = "**"+ ctx.message.author.name +"** you need to tell me what to load!", color = embed_color)
-        await ctx.send(embed = embed)
-        await ctx.message.delete()
+        await bot.say(embed=embed)
+        await bot.delete_message(ctx.message)
 
     else:
         try:
             bot.load_extension(extension_name)
-            embed = discord.Embed(description = "**"+ ctx.author.name +" **the module** {} **was successfully loaded.".format(extension_name), color = embed_color)
-            await ctx.send(embed = embed)
-            await ctx.message.delete()
-            
+            embed = discord.Embed(description = "**"+ ctx.message.author.name +" **the module** {} **was successfully loaded.".format(extension_name), color = embed_color)
+            await bot.say(embed=embed)
+            await bot.delete_message(ctx.message)
         except (ImportError) as e:
-            embed = discord.Embed(description = "**"+ ctx.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color)
-            await ctx.send(embed = embed)
-            await ctx.message.delete()
-            
+            embed = discord.Embed(description = "**"+ ctx.message.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color)
+            await bot.say(embed=embed)
+            await bot.delete_message(ctx.message)
+
 ### Unload Command ###
 @bot.command(pass_context = True)
 async def unload(ctx, *, extension_name : str = None):
 
     if extension_name == None:
-        embed = discord.Embed(description = "**"+ ctx.author.name +"** you need to tell me what to unload!", color = embed_color)
-        await ctx.send(embed = embed)
-        await ctx.message.delete()
+        embed = discord.Embed(description = "**"+ ctx.message.author.name +"** you need to tell me what to unload!", color = embed_color)
+        await bot.say(embed=embed)
+        await bot.delete_message(ctx.message)
 
     else:
         try:
             bot.unload_extension(extension_name)
-            embed = discord.Embed(description = "**"+ ctx.author.name +" **the module** {} **was successfully unloaded.".format(extension_name), color = embed_color)
-            await ctx.send(embed = embed)
-            await ctx.message.delete()
+            embed = discord.Embed(description = "**"+ ctx.message.author.name +" **the module** {} **was successfully unloaded.".format(extension_name), color = embed_color)
+            await bot.say(embed=embed)
+            await bot.delete_message(ctx.message)
         except (ImportError) as e:
-            embed = discord.Embed(description = "**"+ ctx.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color)
-            await ctx.send(embed = embed)
-            await ctx.message.delete()
+            embed = discord.Embed(description = "**"+ ctx.message.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color)
+            await bot.say(embed=embed)
+            await bot.delete_message(ctx.message)
 
 #########################################
 
