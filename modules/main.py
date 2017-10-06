@@ -7,7 +7,7 @@ from config import bot_token
 from config import embed_color
 
 # this specifies what extensions to load when the bot starts up
-startup_extensions = ["core", "kawaii"]
+startup_extensions = ["core", "kawaii", "fun"]
 bot_prefix = "-" #default prefix
 bot = commands.Bot(command_prefix=bot_prefix)
 bot.remove_command("help")
@@ -27,15 +27,16 @@ async def on_ready():
 #help command (-help)
     @bot.command(pass_context = True, aliases=['h'])
     async def help(ctx):
-        embed = discord.Embed(title="Command List for Kyoto!", colour=discord.Colour(0xcd4bb6), description="By default all commands have the ``-`` prefix. \nIf your server admin changed the prefix, then stick to that prefix!\n**Don't include the example brackets when using the commands!**⠀\n⠀")
+        embed = discord.Embed(title="Command List for Kyoto!", colour = embed_color, description="By default all commands have the ``-`` prefix. \nIf your server admin changed the prefix, then stick to that prefix!\n**Don't include the example brackets when using the commands!**⠀\n⠀")
         embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/365240645419270145/3f6527890a2b55b1eb864dd0113e0589.png")
         embed.add_field(name="Core Commands", value="`-help`⠀`-invite`⠀`-ls` or `-listservers`⠀`-si` or `-serverinfo`\n", inline=False)
         embed.add_field(name="Kawaii Commands", value="`-hug [@mention]`⠀`-poke [@mention]`⠀`-wave [@mention]`⠀`-hide [@mention]`⠀\n`-blush`⠀`-shine`⠀`-happy`\n", inline=False)
+        embed.add_field(name="Fun Commands", value="`-8ball [question]`⠀\n", inline=False)
         embed.add_field(name="Voice Commands", value="`-connect`⠀`-disconnect`\n", inline=False)
         embed.add_field(name="Administrator Commands", value="`-clear [amount]`⠀`-ban [@mention]`⠀`-getbans`⠀`-kick [@mention]`", inline=False)
         await bot.send_message(ctx.message.author, embed = embed),
 
-        embed = discord.Embed(description = "**"+ctx.message.author.name +" a personal message with all my commands is on the way!** :heart:", color = 13454262)
+        embed = discord.Embed(description = "**"+ctx.message.author.name +" a personal message with all my commands is on the way!** :heart:", color = embed_color)
         await bot.say(embed = embed)
         await bot.delete_message(ctx.message)
 

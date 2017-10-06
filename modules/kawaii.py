@@ -3,9 +3,7 @@
 #########################################
 
 import discord
-import asyncio
 import random
-import json
 from discord.ext import commands
 from config import embed_color
 
@@ -52,14 +50,14 @@ class Kawaii():
         if not member:
             embed = discord.Embed(description = "**"+ ctx.message.author.mention +"** waves to **<@!365240645419270145>**", color = embed_color)
             embed.set_image(url="https://i.imgur.com/w5kTICt.gif")
-            await client.say(embed = embed)
-            await client.delete_message(ctx.message)
+            await self.bot.say(embed = embed)
+            await self.bot.delete_message(ctx.message)
 
         else:
             embed = discord.Embed(description = "**"+ ctx.message.author.mention +"** waves at you **%s**"%member.mention, color = embed_color)
             embed.set_image(url="https://i.imgur.com/w5kTICt.gif")
-            await client.say(embed = embed)
-            await client.delete_message(ctx.message)
+            await self.bot.say(embed = embed)
+            await self.bot.delete_message(ctx.message)
 
 #hide command (-hide [@mention])
     @commands.command(pass_context = True)

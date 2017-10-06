@@ -1,12 +1,9 @@
-
 #########################################
 ############# Core Commands #############
 #########################################
 
 import discord
-import asyncio
 import random
-import json
 from discord.ext import commands
 from config import embed_color
 
