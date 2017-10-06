@@ -4,7 +4,7 @@ from config import bot_token
 from config import embed_color
 
 # this specifies what extensions to load when the bot starts up
-startup_extensions = ["core", "kawaii", "fun"]
+startup_extensions = ["core", "kawaii", "fun", "owner"]
 bot_prefix = "-" #default prefix
 bot = commands.Bot(command_prefix=bot_prefix)
 bot.remove_command("help")
@@ -37,52 +37,7 @@ async def on_ready():
         await ctx.send(embed = embed)
         await ctx.message.delete()
 
-#########################################
-############## Load/Unload ##############
-#########################################
-
-### Load Command ###
-@bot.command(pass_context = True)
-async def load(ctx, *, extension_name : str = None):
-
-    if extension_name == None:
-        embed = discord.Embed(description = "**"+ ctx.message.author.name +"** you need to tell me what to load!", color = embed_color)
-        await ctx.send(embed = embed)
-        await ctx.message.delete()
-
-    else:
-        try:
-            bot.load_extension(extension_name)
-            embed = discord.Embed(description = "**"+ ctx.author.name +" **the module** {} **was successfully loaded.".format(extension_name), color = embed_color)
-            await ctx.send(embed = embed)
-            await ctx.message.delete()
-            
-        except (ImportError) as e:
-            embed = discord.Embed(description = "**"+ ctx.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color)
-            await ctx.send(embed = embed)
-            await ctx.message.delete()
-            
-### Unload Command ###
-@bot.command(pass_context = True)
-async def unload(ctx, *, extension_name : str = None):
-
-    if extension_name == None:
-        embed = discord.Embed(description = "**"+ ctx.author.name +"** you need to tell me what to unload!", color = embed_color)
-        await ctx.send(embed = embed)
-        await ctx.message.delete()
-
-    else:
-        try:
-            bot.unload_extension(extension_name)
-            embed = discord.Embed(description = "**"+ ctx.author.name +" **the module** {} **was successfully unloaded.".format(extension_name), color = embed_color)
-            await ctx.send(embed = embed)
-            await ctx.message.delete()
-        except (ImportError) as e:
-            embed = discord.Embed(description = "**"+ ctx.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color)
-            await ctx.send(embed = embed)
-            await ctx.message.delete()
-
-#########################################
+#######################################
 
 if __name__ == "__main__":
     for extension in startup_extensions:
@@ -92,4 +47,4 @@ if __name__ == "__main__":
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(extension, exc))
 
-    bot.run(bot_token)
+bot.run(bot_token)
