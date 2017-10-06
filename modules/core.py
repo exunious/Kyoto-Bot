@@ -8,6 +8,7 @@ import asyncio
 import random
 import json
 from discord.ext import commands
+from config import embed_color
 
 class Core():
     def __init__(self, bot):
@@ -16,11 +17,11 @@ class Core():
 #invite command (-invite)
     @commands.command(pass_context = True)
     async def invite(self, ctx):
-        embed = discord.Embed(title = "**Invite Kyoto to your server!**", description = "You want to invite **Kyoto** to your server?\nThen you can use this link to invite him!\n\n[Click here to invite **Kyoto**](https://discordapp.com/oauth2/authorize?client_id=365240645419270145&scope=bot&permissions=527952983)", color = 13454262)
+        embed = discord.Embed(title = "**Invite Kyoto to your server!**", description = "You want to invite **Kyoto** to your server?\nThen you can use this link to invite him!\n\n[Click here to invite **Kyoto**](https://discordapp.com/oauth2/authorize?client_id=365240645419270145&scope=bot&permissions=527952983)", color = embed_color)
         embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/365240645419270145/3f6527890a2b55b1eb864dd0113e0589.png")
         await self.bot.send_message(ctx.message.author, embed = embed)
 
-        embed = discord.Embed(description = "**"+ctx.message.author.mention +" a personal message with the bot invite is on the way!** :heart:", color = 13454262)
+        embed = discord.Embed(description = "**"+ctx.message.author.name +" a personal message with the bot invite is on the way!** :heart:", color = embed_color)
         await self.bot.say(embed = embed)
         await self.bot.delete_message(ctx.message)
 
@@ -29,7 +30,7 @@ class Core():
     async def listservers(self, ctx):
         x = '\n'.join([str(server) for server in client.servers])
         print(x)
-        embed = discord.Embed(title = "Servers", description = x, color = 13454262)
+        embed = discord.Embed(title = "Servers", description = x, color = embed_color)
         await self.bot.say(embed = embed)
         await self.bot.delete_message(ctx.message)
 
@@ -43,7 +44,7 @@ class Core():
         role_length = len(roles)
         roles = ', '.join(roles);    
 
-        embed = discord.Embed(colour = 13454262)
+        embed = discord.Embed(colour = embed_color)
         embed.set_thumbnail(url = server.icon_url);
         embed.set_author(name = "Server Information", icon_url = "http://icons.iconarchive.com/icons/graphicloads/100-flat/128/information-icon.png")
 

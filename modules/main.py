@@ -4,12 +4,11 @@ import random
 import json
 from discord.ext import commands
 from config import bot_token
+from config import embed_color
 
 # this specifies what extensions to load when the bot starts up
-startup_extensions = ["core", "members"]
-
+startup_extensions = ["core", "kawaii"]
 bot_prefix = "-" #default prefix
-embed_color = 13454262 #default embed color
 bot = commands.Bot(command_prefix=bot_prefix)
 bot.remove_command("help")
 
@@ -36,7 +35,7 @@ async def on_ready():
         embed.add_field(name="Administrator Commands", value="`-clear [amount]`⠀`-ban [@mention]`⠀`-getbans`⠀`-kick [@mention]`", inline=False)
         await bot.send_message(ctx.message.author, embed = embed),
 
-        embed = discord.Embed(description = "**"+ctx.message.author.mention +" a personal message with all my commands is on the way!** :heart:", color = 13454262)
+        embed = discord.Embed(description = "**"+ctx.message.author.name +" a personal message with all my commands is on the way!** :heart:", color = 13454262)
         await bot.say(embed = embed)
         await bot.delete_message(ctx.message)
 
