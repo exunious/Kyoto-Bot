@@ -2,6 +2,7 @@ import discord
 import asyncio
 import random
 import json
+from config import token
 from discord.ext import commands
 
 # this specifies what extensions to load when the bot starts up
@@ -75,4 +76,4 @@ if __name__ == "__main__":
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(extension, exc))
 
-    bot.run('MzY1MjQwNjQ1NDE5MjcwMTQ1.DLbgxg.1YZ1I8mqliOBd8ESKh_0iBiU_cc')
+    bot.run(bot_token)
