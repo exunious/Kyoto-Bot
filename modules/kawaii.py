@@ -5,13 +5,15 @@
 import discord
 from discord.ext import commands
 from config import embed_color
+from config import embed_color_error
+from config import embed_color_attention
 
 class Kawaii():
     def __init__(self, bot):
         self.bot = bot
 
 #hug command (-hug [@mention])
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, no_pm = True)
     async def hug(self, ctx, *, member : discord.Member = None):
 
         if not member:
@@ -27,7 +29,7 @@ class Kawaii():
             await ctx.message.delete()
 
 #poke command (-poke [@mention])
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, no_pm = True)
     async def poke(self, ctx, *, member : discord.Member = None):
 
         if not member:
@@ -43,7 +45,7 @@ class Kawaii():
             await ctx.message.delete()
   
 #wave command (-wave [@mention])
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, no_pm = True)
     async def wave(self, ctx, *, member : discord.Member = None):
 
         if not member:
@@ -59,7 +61,7 @@ class Kawaii():
             await ctx.message.delete()
 
 #hide command (-hide [@mention])
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, no_pm = True)
     async def hide(self, ctx, *, member : discord.Member = None):
 
         if not member:
@@ -75,7 +77,7 @@ class Kawaii():
             await ctx.message.delete()
 
 #blush command (-blush)
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, no_pm = True)
     async def blush(self, ctx):
 
         embed = discord.Embed(description = "**"+ ctx.author.mention +"** blushes", color = embed_color)
@@ -84,7 +86,7 @@ class Kawaii():
         await ctx.message.delete()
         
 #shine command (-shine)
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, no_pm = True)
     async def shine(self, ctx):
 
         embed = discord.Embed(description = "**"+ ctx.author.mention +"** shines", color = embed_color)
@@ -93,7 +95,7 @@ class Kawaii():
         await ctx.message.delete()
 
 #happy command (-happy)
-    @commands.command(pass_context = True)
+    @commands.command(pass_context = True, no_pm = True)
     async def happy(self, ctx):
 
         embed = discord.Embed(description = "**"+ ctx.author.mention +"** is super happy!", color = embed_color)

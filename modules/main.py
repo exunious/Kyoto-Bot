@@ -2,9 +2,11 @@ import discord
 from discord.ext import commands
 from config import bot_token
 from config import embed_color
+from config import embed_color_error
+from config import embed_color_attention
 
 # this specifies what extensions to load when the bot starts up
-startup_extensions = ["core", "kawaii", "fun", "owner"]
+startup_extensions = ["extra.errorhandler", "owner", "core", "kawaii", "fun"]
 bot_prefix = "-" #default prefix
 bot = commands.Bot(command_prefix=bot_prefix)
 bot.remove_command("help")
@@ -37,7 +39,7 @@ async def on_ready():
         await ctx.send(embed = embed)
         await ctx.message.delete()
 
-#######################################
+###########################################
 
 if __name__ == "__main__":
     for extension in startup_extensions:

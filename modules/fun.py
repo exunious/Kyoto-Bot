@@ -11,7 +11,7 @@ class Fun():
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command(pass_context = True, aliases=['8ball'])
+	@commands.command(pass_context = True, no_pm = True, aliases=['8ball'])
 	async def eightball(self, ctx, *, question : str = None):
 
 		if question == None:
