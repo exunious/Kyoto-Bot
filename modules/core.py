@@ -29,7 +29,7 @@ class Core:
     @commands.command(pass_context = True, no_pm = True)
     async def invite(self, ctx):
         embed = discord.Embed(title = "**Invite Kyoto to your server!**", description = "You want to invite **Kyoto** to your server?\nThen you can use this link to invite him!\n\n[Click here to invite **Kyoto**](https://discordapp.com/oauth2/authorize?client_id=365240645419270145&scope=bot&permissions=527952983)", color = embed_color)
-        embed.set_thumbnail(url="https://cdn.discordapp.com/avatars/365240645419270145/3f6527890a2b55b1eb864dd0113e0589.png")
+        embed.set_thumbnail(url = self.bot.user.avatar_url)
         await ctx.author.send(embed = embed)
 
         embed = discord.Embed(description = "**"+ctx.author.name +" a personal message with the bot invite is on the way!** :heart:", color = embed_color)
