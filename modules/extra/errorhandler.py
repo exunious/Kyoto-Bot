@@ -16,7 +16,7 @@ class ErrorHandler:
 				embed.add_field(name="Command Used: ", value = ctx.message.content)
 				await ctx.send(embed = embed)
 				await ctx.message.delete()
-			elif isinstance (error, commands.BotMissingPermissions):
+			elif isinstance (error, commands.MissingPermissions):
 				pass
 
 def setup(bot):
