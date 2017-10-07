@@ -14,44 +14,58 @@ class Owner:
 		self.bot = bot
 
 ### Load Module Command ###
-	@commands.command(name = 'modload', pass_context = True, no_pm = True, aliases = ['ml'])
+	@commands.command(name = 'modload', hidden=True, no_pm = True, aliases = ['ml'])
 	async def modload(self, ctx, *, extension_name : str = None):
-
-		if extension_name == None:
-			embed = discord.Embed(description = "**"+ ctx.message.author.name +"** you need to tell me what to load!", color = embed_color_attention)
-			await ctx.send(embed = embed)
-			await ctx.message.delete()
-
-		else:
+		
+		if ctx.message.author.id == bot_owner and extension_name is not None:
 			try:
 				self.bot.load_extension(extension_name)
 				embed = discord.Embed(description = "**"+ ctx.author.name +" **the module** {} **was successfully loaded.".format(extension_name), color = embed_color)
 				await ctx.send(embed = embed)
 				await ctx.message.delete()
-			except (ImportError) as e:
+			except Exception as e:
 				embed = discord.Embed(description = "**"+ ctx.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color_error)
 				await ctx.send(embed = embed)
 				await ctx.message.delete()
-            
-### Unload Module Command ###
-	@commands.command(name = 'modunload', pass_context = True, no_pm = True, aliases = ['mu'])
-	async def modunload(self, ctx, *, extension_name : str = None):
 
-		if extension_name == None:
-			embed = discord.Embed(description = "**"+ ctx.author.name +"** you need to tell me what to unload!", color = embed_color_attention)
+		elif extension_name == None:
+			embed = discord.Embed(description = "**"+ ctx.author.name +"** you need to tell me what to load!", color = embed_color_attention)
 			await ctx.send(embed = embed)
 			await ctx.message.delete()
 
+		elif ctx.message.author.id is not bot_owner:		
+			embed = discord.Embed(description = "**"+ ctx.author.name +"** you're not allowed to do this!", color = embed_color_error)
+			await ctx.send(embed = embed)
+			await ctx.message.delete()
 		else:
+			pass
+            
+### Unload Module Command ###
+	@commands.command(name = 'modunload', hidden=True, no_pm = True, aliases = ['mu'])
+	async def modunload(self, ctx, *, extension_name : str = None):
+		
+		if ctx.message.author.id == bot_owner and extension_name is not None:
 			try:
 				self.bot.unload_extension(extension_name)
 				embed = discord.Embed(description = "**"+ ctx.author.name +" **the module** {} **was successfully unloaded.".format(extension_name), color = embed_color)
 				await ctx.send(embed = embed)
 				await ctx.message.delete()
-			except (ImportError) as e:
+			except Exception as e:
 				embed = discord.Embed(description = "**"+ ctx.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color_error)
 				await ctx.send(embed = embed)
 				await ctx.message.delete()
+
+		elif extension_name == None:
+			embed = discord.Embed(description = "**"+ ctx.author.name +"** you need to tell me what to unload!", color = embed_color_attention)
+			await ctx.send(embed = embed)
+			await ctx.message.delete()
+
+		elif ctx.message.author.id is not bot_owner:		
+			embed = discord.Embed(description = "**"+ ctx.author.name +"** you're not allowed to do this!", color = embed_color_error)
+			await ctx.send(embed = embed)
+			await ctx.message.delete()
+		else:
+			pass
 
 ### Reload Module Command ###
 	@commands.command(name = 'modreload', hidden=True, no_pm = True, aliases = ['mr'])
@@ -61,11 +75,11 @@ class Owner:
 			try:
 				self.bot.unload_extension(extension_name)
 				self.bot.load_extension(extension_name)
-				embed = discord.Embed(description = "**"+ ctx.author.name +" **the module** {} **was successfully reloaded.".format(extension_name), color = embed_color)
+				embed = discord.Embed(description = "**"+ ctx.author.name +" **the module** {} **was successfully reloaded.".format(extension_name), color = embed_color_error)
 				await ctx.send(embed = embed)
 				await ctx.message.delete()
 			except Exception as e:
-				embed = discord.Embed(description = "**"+ ctx.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color)
+				embed = discord.Embed(description = "**"+ ctx.author.name +" {}:** *{}*".format(type(e).__name__, str(e)), color = embed_color_error)
 				await ctx.send(embed = embed)
 				await ctx.message.delete()
 
