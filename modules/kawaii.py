@@ -3,10 +3,10 @@
 #########################################
 
 import discord
+import random
+from data.kawaii import *
+from config import *
 from discord.ext import commands
-from config import embed_color
-from config import embed_color_error
-from config import embed_color_attention
 
 class Kawaii():
     def __init__(self, bot):
@@ -17,14 +17,16 @@ class Kawaii():
     async def hug(self, ctx, *, member : discord.Member = None):
 
         if not member:
-            embed = discord.Embed(description = "**"+ ctx.author.mention +"** you got hugged by" + self.bot.user.mention, color = embed_color)
-            embed.set_image(url="https://media.tenor.com/images/08de7ad3dcac4e10d27b2c203841a99f/tenor.gif")
+            choice = random.choice(hugs)
+            embed = discord.Embed(description = "**"+ ctx.author.mention +" you got hugged by" + self.bot.user.mention + "**", color = embed_color)
+            embed.set_image(url = "{}".format(choice))
             await ctx.send(embed = embed)
             await ctx.message.delete()
 
-        else:    
-            embed = discord.Embed(description = "**%s** you got hugged by **"%member.mention + ctx.author.mention +"**", color = embed_color)
-            embed.set_image(url="http://i.imgur.com/cLHRyeB.gif")
+        else:
+            choice = random.choice(hugs) 
+            embed = discord.Embed(description = "**%s you got hugged by "%member.mention + ctx.author.mention +"**", color = embed_color)
+            embed.set_image(url = "{}".format(choice))
             await ctx.send(embed = embed)
             await ctx.message.delete()
 
@@ -33,14 +35,16 @@ class Kawaii():
     async def poke(self, ctx, *, member : discord.Member = None):
 
         if not member:
-            embed = discord.Embed(description = "**"+ ctx.author.mention +"** pokes"+self.bot.user.mention, color = embed_color)
-            embed.set_image(url="https://i.imgur.com/kXBD83W.gif")
+            choice = random.choice(pokes) 
+            embed = discord.Embed(description = "**" + ctx.author.mention + " pokes " + self.bot.user.mention + "**", color = embed_color)
+            embed.set_image(url = "{}".format(choice))
             await ctx.send(embed = embed)
             await ctx.message.delete()
         
         else:
-            embed = discord.Embed(description = "**%s** you got poked by **"%member.mention + ctx.author.mention +"**", color = embed_color)
-            embed.set_image(url="https://i.imgur.com/kXBD83W.gif")
+            choice = random.choice(pokes) 
+            embed = discord.Embed(description = "**%s you got poked by "%member.mention + ctx.author.mention + "**", color = embed_color)
+            embed.set_image(url = "{}".format(choice))
             await ctx.send(embed = embed)
             await ctx.message.delete()
   

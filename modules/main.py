@@ -1,12 +1,10 @@
 import discord
+import datetime
 from discord.ext import commands
-from config import bot_token
-from config import embed_color
-from config import embed_color_error
-from config import embed_color_attention
+from config import *
 
 # this specifies what extensions to load when the bot starts up
-startup_extensions = ["extra.errorhandler", "owner", "core", "kawaii", "fun"]
+startup_extensions = ["extra.errorhandler", "owner", "admin", "core", "kawaii", "fun"]
 bot_prefix = "-" #default prefix
 bot = commands.Bot(command_prefix=bot_prefix)
 bot.remove_command("help")
@@ -43,7 +41,40 @@ async def on_ready():
         await ctx.send(embed = embed)
         await ctx.message.delete()
 
-###########################################
+#    @bot.command(pass_context = True, no_pm = True, aliases = ['p'])
+#    async def prefix(ctx):
+#
+#        embed = discord.Embed(description = "**"+ ctx.author.name +"** the prefix to use **Kyoto** is: `{}`".format(bot_prefix), color = embed_color)
+#        await ctx.send(embed = embed)
+#        await ctx.message.delete()
+
+#################################################
+############## Contact Dev Command ##############
+#################################################
+
+    @bot.command(pass_context = True)
+    async def ctdev(ctx, *, pmessage : str = None):
+        invite = await ctx.channel.create_invite(max_uses = 1, xkcd = True)
+        dev = bot.get_user(bot_owner)
+    
+        if pmessage == None:
+            embed = discord.Embed(description = "**"+ ctx.author.name +"** my developers need to know something right? Type a feedback!", color = embed_color_error)
+            await ctx.send(embed = embed)
+            await ctx.message.delete()
+        else:
+#            msg = "User: {}\nServer: {}\nFeedBack: {}\nServer Invite: {}".format(ctx.author, ctx.guild, pmessage, invite.url)
+            embed = discord.Embed(title = "Invite to {} discord server!".format(ctx.guild), colour = embed_color, url = "{}".format(invite.url), description = "**Feedback:** {}".format(pmessage), timestamp = datetime.datetime.utcfromtimestamp(1507439238))
+            embed.set_thumbnail(url = "{}".format(ctx.author.avatar_url))
+            embed.set_author(name = "{} sent:".format(ctx.author), icon_url = "{}".format(ctx.author.avatar_url))
+            await dev.send(embed = embed)
+#            await dev.send(msg)
+            embed = discord.Embed(description = "I have PMed **{}#{}** with your feedback! Thank you for your help!".format(dev.name, dev.discriminator), color = embed_color_succes)
+            await ctx.send(embed = embed)
+            await ctx.message.delete()
+#            return await ctx.send(ctx.author.mention + " I have PMed my creator your feedback! Thank you for the help!")
+            
+
+#################################################
 
 if __name__ == "__main__":
     for extension in startup_extensions:

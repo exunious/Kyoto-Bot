@@ -29,5 +29,19 @@ class Fun():
 			await ctx.send(embed=embed)
 			await ctx.message.delete()
 
+	@commands.command(pass_context = True, no_pm = True, aliases = ['hub'])
+	async def discordhub(self, ctx, *, member : discord.Member = None):
+
+		author = ctx.author
+
+		if not member:
+			member = author
+		
+		embed = discord.Embed(title="Click here to visit *%s* profile!"%member.name, colour = embed_color, url="https://discordhub.com/profile/%s"%member.id, description="DiscordHub aims to provide a centralized platform for Discord\nby providing features such as user accounts and a public server list.")
+		embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/4.png")
+		embed.set_author(name="%s Profile!"%member.name, icon_url="https://cdn.discordapp.com/embed/avatars/4.png")
+		await ctx.send(embed=embed)
+		await ctx.message.delete()
+
 def setup(bot):
     bot.add_cog(Fun(bot))

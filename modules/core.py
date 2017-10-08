@@ -2,12 +2,12 @@
 ############# Core Commands #############
 #########################################
 
-from config import embed_color
-from config import embed_color_error
-from config import embed_color_attention
-from config import bot_owner
+from config import *
 from discord.ext import commands
 from collections import Counter
+from utils import checks, formats
+from utils.paginator import HelpPaginator, CannotPaginate
+from collections import OrderedDict, deque, Counter
 
 #from .utils import checks, db
 
@@ -15,8 +15,12 @@ import utils.checks
 import utils.db
 import logging
 import discord
+import asyncio
 import datetime
 import traceback
+import copy
+import unicodedata
+import inspect
 import psutil
 import os
 
@@ -30,22 +34,36 @@ class Core:
     async def invite(self, ctx):
         embed = discord.Embed(title = "**Invite Kyoto to your server!**", description = "You want to invite **Kyoto** to your server?\nThen you can use this link to invite him!\n\n[Click here to invite **Kyoto**](https://discordapp.com/oauth2/authorize?client_id=365240645419270145&scope=bot&permissions=527952983)", color = embed_color)
         embed.set_thumbnail(url = self.bot.user.avatar_url)
-        await ctx.author.send(embed = embed)
-
-        embed = discord.Embed(description = "**"+ctx.author.name +" a personal message with the bot invite is on the way!** :heart:", color = embed_color)
         await ctx.send(embed = embed)
+
+#        embed = discord.Embed(description = "**"+ctx.author.name +" a personal message with the bot invite is on the way!** :heart:", color = embed_color)
+#        await ctx.send(embed = embed)
+#        await ctx.message.delete()
+
+### List Servers Command ###
+    @commands.command(aliases = ['ls'])
+    async def listservers(self, ctx, number : int = 10):
+
+        e = discord.Embed(colour = embed_color)
+        if number > 50:
+            number = 50
+        if number < 1:
+            await ctx.channel.send('Oookay - look!  No servers!  Just like you wanted!')
+            return
+        i = 1
+        for guild in self.bot.guilds:
+            if i > number:
+                break
+            tmembers = guild.member_count
+            vchannels = guild.voice_channels
+            tchannels = guild.text_channels
+            omembers = sum(m.status is discord.Status.online for m in guild.members)
+            e.add_field(name = guild.name, value = f"Server Owner: **{guild.owner.name}#{guild.owner.discriminator}**\nOnline Members: **{omembers}** - Total Members: **{tmembers}**\nText Channels: **"+ str(len(tchannels)) +"** - Voice Channels: **"+ str(len(vchannels)) +"**", inline = False)
+            i += 1
+        await ctx.channel.send(embed = e)
         await ctx.message.delete()
 
-#listservers command (-listservers)
-    @commands.command(pass_context = True, aliases=['ls'])
-    async def listservers(self, ctx):
-        x = '\n'.join([str(server) for server in self.bot.guilds])
-        print(x)
-        embed = discord.Embed(title = "Servers", description = x, color = embed_color)
-        await ctx.send(embed = embed)
-        await ctx.message.delete()
-
-#server command (-server)
+### Server Information Command ###
     @commands.command(pass_context = True, no_pm = True, aliases=['si'])
     async def serverinfo(self, ctx):
         vchannels = ctx.guild.voice_channels

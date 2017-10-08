@@ -4,15 +4,18 @@
 
 import discord
 from discord.ext import commands
-from config import bot_owner
-from config import embed_color
-from config import embed_color_succes
-from config import embed_color_error
-from config import embed_color_attention
+from config import *
 
 class Owner:
 	def __init__(self, bot):
 		self.bot = bot
+
+	@commands.command(name = 'shutdown', hidden = True, no_pm = True, aliases = ['sd'])
+	async def shutdown(self, ctx):
+		if ctx.author.id == bot_owner:
+			embed = discord.Embed(description = "**"+ ctx.author.name +"** Bye bye, cry cry! ", color = embed_color_succes)
+			await ctx.send(embed = embed)
+			await self.bot.logout()
 
 ### Load Module Command ###
 	@commands.command(name = 'modload', hidden=True, no_pm = True, aliases = ['ml'])
@@ -95,6 +98,15 @@ class Owner:
 			await ctx.message.delete()
 		else:
 			pass
+
+### Still busy with ###
+#	@commands.command(name = 'setrole', hidden=True, no_pm = True, aliases = ['sr'])
+#	async def setrole(self, ctx, *, member : discord.member = None, role : str = None):
+#
+#		if ctx.author.id ==  and extension_name is not None:
+#
+#role = discord.utils.get(server.roles, name="admin")
+#await client.add_roles(member, role)
 
 #########################################
 
