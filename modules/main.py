@@ -1,5 +1,6 @@
 import discord
 import datetime
+from time import time
 from discord.ext import commands
 from config import *
 
@@ -24,16 +25,16 @@ async def on_ready():
 #help command (-help)
     @bot.command(pass_context = True, aliases=['h'])
     async def help(ctx):
-        embed = discord.Embed(title="Command List for Kyoto!", colour = embed_color, description="By default all commands have the - prefix. \nIf your server admin changed the prefix, then stick to that prefix!\n**Don't include the example brackets when using the commands!**⠀\n⠀")
+        embed = discord.Embed(title="Command List for Noëlla!", colour = embed_color, description="By default all commands have the - prefix. \nIf your server admin changed the prefix, then stick to that prefix!\n**Don't include the example brackets when using the commands!**⠀\n⠀")
         embed.set_thumbnail(url = bot.user.avatar_url)
         embed.add_field(name="Core Commands", value="-h or -help \n-invite \n-ls or -listservers \n-si or -serverinfo \n-about \n", inline=True)
-        embed.add_field(name="⠀", value="To get help and commands per PM \nTo get a PM with the Bot Invite \nTo get a list of server with Kyoto \nTo see server information \nTo see information about Kyoto \n", inline=True)
+        embed.add_field(name="⠀", value="To get help and commands per PM \nTo get a PM with the Bot Invite \nTo get a list of server with Noëlla \nTo see server information \nTo see information about Noëlla \n", inline=True)
         embed.add_field(name="Kawaii Commands", value="-hug [@mention]⠀\n-poke [@mention]⠀\n-wave [@mention]⠀\n-hide [@mention]⠀\n-blush⠀\n-shine⠀\n-happy \n", inline=True)
-        embed.add_field(name="⠀", value="To hug Kyoto or someone else! \nTo poke Kyoto or someone else! \nTo wave at Kyoto or someone else! \nTo hide for Kyoto or someone else! \nTo express that you're blushing! \nTo express you're shining! \nTo express you're happy! \n", inline=True)
+        embed.add_field(name="⠀", value="To hug Noëlla or someone else! \nTo poke Noëlla or someone else! \nTo wave at Noëlla or someone else! \nTo hide for Noëlla or someone else! \nTo express that you're blushing! \nTo express you're shining! \nTo express you're happy! \n", inline=True)
         embed.add_field(name="Fun Commands", value="-8ball [question]⠀\n", inline=True)
         embed.add_field(name="⠀", value="Ask all you want, to the holy 8Ball!\n", inline=True)
         embed.add_field(name="Voice Commands", value="-connect⠀\n-disconnect\n", inline=True)
-        embed.add_field(name="⠀", value="Connect Kyoto [voice-channel]\nDisconnect Kyoto [voice-channel]\n", inline=True)
+        embed.add_field(name="⠀", value="Connect Noëlla [voice-channel]\nDisconnect Noëlla [voice-channel]\n", inline=True)
         embed.add_field(name="Administrator Commands", value="-clear [amount]⠀-ban [@mention]⠀-getbans⠀-kick [@mention]", inline=False)
         await ctx.author.send(embed = embed),
 
@@ -44,7 +45,7 @@ async def on_ready():
 #    @bot.command(pass_context = True, no_pm = True, aliases = ['p'])
 #    async def prefix(ctx):
 #
-#        embed = discord.Embed(description = "**"+ ctx.author.name +"** the prefix to use **Kyoto** is: `{}`".format(bot_prefix), color = embed_color)
+#        embed = discord.Embed(description = "**"+ ctx.author.name +"** the prefix to use **Noëlla** is: `{}`".format(bot_prefix), color = embed_color)
 #        await ctx.send(embed = embed)
 #        await ctx.message.delete()
 
@@ -56,14 +57,14 @@ async def on_ready():
     async def ctdev(ctx, *, pmessage : str = None):
         invite = await ctx.channel.create_invite(max_uses = 1, xkcd = True)
         dev = bot.get_user(bot_owner)
-    
+
         if pmessage == None:
             embed = discord.Embed(description = "**"+ ctx.author.name +"** my developers need to know something right? Type a feedback!", color = embed_color_error)
             await ctx.send(embed = embed)
             await ctx.message.delete()
         else:
 #            msg = "User: {}\nServer: {}\nFeedBack: {}\nServer Invite: {}".format(ctx.author, ctx.guild, pmessage, invite.url)
-            embed = discord.Embed(title = "Invite to {} discord server!".format(ctx.guild), colour = embed_color, url = "{}".format(invite.url), description = "**Feedback:** {}".format(pmessage), timestamp = datetime.datetime.utcfromtimestamp(1507439238))
+            embed = discord.Embed(title = "Invite to {} discord server!".format(ctx.guild), colour = embed_color, url = "{}".format(invite.url), description = "**Feedback:** {}".format(pmessage))
             embed.set_thumbnail(url = "{}".format(ctx.author.avatar_url))
             embed.set_author(name = "{} sent:".format(ctx.author), icon_url = "{}".format(ctx.author.avatar_url))
             await dev.send(embed = embed)

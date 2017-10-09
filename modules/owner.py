@@ -17,6 +17,11 @@ class Owner:
 			await ctx.send(embed = embed)
 			await self.bot.logout()
 
+		elif ctx.author.id is not bot_owner:		
+			embed = discord.Embed(description = "**"+ ctx.author.name +"** you're not allowed to do this!", color = embed_color_error)
+			await ctx.send(embed = embed)
+			await ctx.message.delete()
+
 ### Load Module Command ###
 	@commands.command(name = 'modload', hidden=True, no_pm = True, aliases = ['ml'])
 	async def modload(self, ctx, *, extension_name : str = None):

@@ -32,7 +32,7 @@ class Core:
 #invite command (-invite)
     @commands.command(pass_context = True, no_pm = True)
     async def invite(self, ctx):
-        embed = discord.Embed(title = "**Invite Kyoto to your server!**", description = "You want to invite **Kyoto** to your server?\nThen you can use this link to invite him!\n\n[Click here to invite **Kyoto**](https://discordapp.com/oauth2/authorize?client_id=365240645419270145&scope=bot&permissions=527952983)", color = embed_color)
+        embed = discord.Embed(title = "**Invite Noëlla to your server!**", description = "You want to invite **Noëlla** to your server?\nThen you can use this link to invite him!\n\n[Click here to invite **Noëlla**](https://discordapp.com/oauth2/authorize?client_id=357852849029513216&scope=bot&permissions=527952983)", color = embed_color)
         embed.set_thumbnail(url = self.bot.user.avatar_url)
         await ctx.send(embed = embed)
 
