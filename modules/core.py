@@ -2,7 +2,7 @@
 ############# Core Commands #############
 #########################################
 
-from config import *
+from extra.config import *
 from discord.ext import commands
 from collections import Counter
 from utils import checks, formats

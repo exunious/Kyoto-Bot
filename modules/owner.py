@@ -3,8 +3,10 @@
 ########################################
 
 import discord
+import os
+import sys
 from discord.ext import commands
-from config import *
+from extra.config import *
 
 class Owner:
 	def __init__(self, bot):
@@ -16,11 +18,17 @@ class Owner:
 			embed = discord.Embed(description = "**"+ ctx.author.name +"** Bye bye, cry cry! ", color = embed_color_succes)
 			await ctx.send(embed = embed)
 			await self.bot.logout()
+		else:
+			raise commands.NotOwner()
 
-		elif ctx.author.id is not bot_owner:		
-			embed = discord.Embed(description = "**"+ ctx.author.name +"** you're not allowed to do this!", color = embed_color_error)
+	@commands.command(name = 'restart', hidden = True, no_pm = True, aliases = ['rs'])		
+	async def restart(self, ctx):
+		if ctx.author.id == bot_owner:
+			embed = discord.Embed(description = "**"+ ctx.author.name +"** Bye bye, cry cry! ", color = embed_color_succes)
 			await ctx.send(embed = embed)
-			await ctx.message.delete()
+			os.execve(sys.executable, ['python'] + sys.argv, os.environ)
+		else:
+			raise commands.NotOwner()
 
 ### Load Module Command ###
 	@commands.command(name = 'modload', hidden=True, no_pm = True, aliases = ['ml'])
@@ -43,9 +51,7 @@ class Owner:
 			await ctx.message.delete()
 
 		elif ctx.author.id is not bot_owner:		
-			embed = discord.Embed(description = "**"+ ctx.author.name +"** you're not allowed to do this!", color = embed_color_error)
-			await ctx.send(embed = embed)
-			await ctx.message.delete()
+			raise commands.NotOwner()
 		else:
 			pass
             
@@ -70,9 +76,7 @@ class Owner:
 			await ctx.message.delete()
 
 		elif ctx.author.id is not bot_owner:		
-			embed = discord.Embed(description = "**"+ ctx.author.name +"** you're not allowed to do this!", color = embed_color_error)
-			await ctx.send(embed = embed)
-			await ctx.message.delete()
+			raise commands.NotOwner()
 		else:
 			pass
 
@@ -98,20 +102,9 @@ class Owner:
 			await ctx.message.delete()
 
 		elif ctx.author.id is not bot_owner:		
-			embed = discord.Embed(description = "**"+ ctx.author.name +"** you're not allowed to do this!", color = embed_color_error)
-			await ctx.send(embed = embed)
-			await ctx.message.delete()
+			raise commands.NotOwner()
 		else:
 			pass
-
-### Still busy with ###
-#	@commands.command(name = 'setrole', hidden=True, no_pm = True, aliases = ['sr'])
-#	async def setrole(self, ctx, *, member : discord.member = None, role : str = None):
-#
-#		if ctx.author.id ==  and extension_name is not None:
-#
-#role = discord.utils.get(server.roles, name="admin")
-#await client.add_roles(member, role)
 
 #########################################
 
@@ -128,9 +121,7 @@ class Owner:
 			await ctx.message.delete()
 		
 		else:
-			embed = discord.Embed(description = "**"+ctx.author.name +"** you're not allowed to change my **Now Playing**", color = embed_color_error)
-			await ctx.send(embed = embed)
-			await ctx.message.delete()
+			raise commands.NotOwner()
 
 def setup(bot):
     bot.add_cog(Owner(bot))

@@ -5,7 +5,7 @@
 import discord
 import random
 from data.kawaii import *
-from config import *
+from extra.config import *
 from discord.ext import commands
 
 class Kawaii():
